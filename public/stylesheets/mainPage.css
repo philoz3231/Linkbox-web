@@ -1,0 +1,33 @@
+.header #logo{
+    width:4%;
+    height:4%;
+    padding-top:1%;
+    float:left;
+}
+
+.header #profile img{
+    margin-left:90%;
+    width:60px;
+}
+
+.header #button{margin-left:85%;}
+
+.nav {float:left;}
+.nav ul{list-style:none;}
+
+.mainContent{position:relative; width:80%; float:right;}
+
+
+
+.footer {position:relative; width:1000px; margin:0 auto;
+    border-top:1px solid #ebebeb; padding:5px 0 30px;
+    overflow:hidden; margin-top:40px;}
+
+.footer h1 {float:left; width:130px;}
+.footer .copy {float:left; width:700px; color:#b5b5b5; font-size:0.8em;}
+.footer .copy span {display:inline-block; margin-right:5px;}
+.footer .copy a {display:inline-block; color:#b5b5b5;}
+.footer .copy a:hover {color:#999;}
+.footer .link {float:right; width:160px; text-align:right; color:#b5b5b5; font-size:0.8em;}
+.footer .link a {display:inline-block; padding:0 5px; color:#b5b5b5; }
+.footer .link a:hover {color:#999;}
