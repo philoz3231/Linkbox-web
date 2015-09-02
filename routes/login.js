@@ -1,7 +1,10 @@
+var Client = require('node-rest-client').Client;
 var express = require('express');
 var router = express.Router();
 
 require('./connection')();
+client = new Client();
+
 
 /* GET login page.
 router.get('/', function(req, res, next) {
@@ -20,6 +23,8 @@ router.get('/', function(req, res){
     }
 });
 
+
+
 router.post('/', function(req, res){
     //Create cookie
     var login = req.param('id');
@@ -27,10 +32,22 @@ router.post('/', function(req, res){
 
     //Print cookie
     console.log(login, password);
-    console.log(req.body);
+    //console.log(req.body);
+
+    var args = {
+        data: {usrID: login, usrPassword: password, usrType: 0, pushToken: 'testToken'},
+
+        headers: {"Content-Type": "application/json"}
+    };
+
+    client.post("http://54.69.181.225:3000/usrList/Login/126.0.0.1", args, function(data, res){
+
+        console.log(res);
+    });
+
 
     //Retrieve usrID & usrPassword according to id
-
+    /*
     connection.query('SELECT * FROM usrList WHERE usrID=?', [login], function(err, data){
 
         if(data.length != 0){
@@ -45,18 +62,19 @@ router.post('/', function(req, res){
             else{
                 //password was wrong
                 res.redirect('/login');
-                //res.send(500, 'showAlert'); /*Ajax필요 클라에서 구현할것*/
+                //res.send(500, 'showAlert'); //Ajax필요 클라에서 구현할것
                 console.log('wrong password');
             }
         }
         else{
             //id was wrong
             res.redirect('/login');
-            //res.send(500, 'showAlert'); /*Ajax필요 클라에서 구현할것*/
+            //res.send(500, 'showAlert'); //Ajax필요 클라에서 구현할것
             console.log('wrong id');
         }
 
-    });
+
+    });*/
 });
 
 module.exports = router;
