@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
     res.render('login', { title: 'login' });
 }); */
 
-//Setting router Get 설정 시 '/가 로그인 눌렀을 때임'
+//Setting router
 router.get('/', function(req, res){
     if(req.cookies.auth){
         res.redirect('/mainPage');
@@ -34,6 +34,7 @@ router.post('/', function(req, res){
     console.log(login, password);
     //console.log(req.body);
 
+
     var args = {
         data: {usrID: login, usrPassword: password, usrType: 0, pushToken: 'testToken'},
 
@@ -41,13 +42,32 @@ router.post('/', function(req, res){
     };
 
     client.post("http://54.69.181.225:3000/usrList/Login/126.0.0.1", args, function(data, res){
+        var dataObject = JSON.parse(data);
 
-        console.log(res);
+        for(i in dataObject){
+
+            var key = i;
+            var val = dataObject[i];
+
+            console.log(val);
+            for( j in val){
+                var sub_val = val[j];
+                console.log(sub_val);
+            }
+        }
+
+        //console.log(JSON.parse(data));  check responded data
+
+
+       // console.log(res);
+
+
+
+
     });
 
-
+/*
     //Retrieve usrID & usrPassword according to id
-    /*
     connection.query('SELECT * FROM usrList WHERE usrID=?', [login], function(err, data){
 
         if(data.length != 0){
@@ -62,19 +82,20 @@ router.post('/', function(req, res){
             else{
                 //password was wrong
                 res.redirect('/login');
-                //res.send(500, 'showAlert'); //Ajax필요 클라에서 구현할것
+                //res.send(500, 'showAlert'); //Need to use Ajax
                 console.log('wrong password');
             }
         }
         else{
             //id was wrong
             res.redirect('/login');
-            //res.send(500, 'showAlert'); //Ajax필요 클라에서 구현할것
+            //res.send(500, 'showAlert'); //Need to use Ajax
             console.log('wrong id');
         }
 
 
-    });*/
+    });
+    */
 });
 
 module.exports = router;
