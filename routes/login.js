@@ -41,28 +41,42 @@ router.post('/', function(req, res){
         headers: {"Content-Type": "application/json"}
     };
 
-    client.post("http://54.69.181.225:3000/usrList/Login/126.0.0.1", args, function(data, res){
-        var dataObject = JSON.parse(data);
+    client.post("http://54.69.181.225:3000/usrList/Login/126.0.0.1", args, function(data, response){
+        var jsonData = JSON.parse(data);
+        console.log(jsonData.object);
 
-        for(i in dataObject){
+        var objectData = jsonData.object;
+        for(i in objectData){
 
             var key = i;
-            var val = dataObject[i];
+            var val = objectData[i];
 
-            console.log(val);
-            for( j in val){
-                var sub_val = val[j];
-                console.log(sub_val);
+            if(key == 'usrKey'){
+                var usrKeyOfDB = val;
+                console.log(usrKeyOfDB);
             }
+            if(key == 'usrID'){
+                var usrIdOfDB = val;
+                console.log(usrIdOfDB);
+            }
+            /*
+            if(key == 'usrPassword'){
+                var usrPasswordOfDB = val;
+                console.log(usrPasswordOfDB);
+            } */
         }
+        if(jsonData.object != null){
+            console.log('data included');
+            if(usrIdOfDB == login ){
+                res.cookie('auth', true);
+                res.redirect('/mainPage');
+            }
+            else{
+                res.redirect('/login');
 
-        //console.log(JSON.parse(data));  check responded data
+            }
 
-
-       // console.log(res);
-
-
-
+        }
 
     });
 
