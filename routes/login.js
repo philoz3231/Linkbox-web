@@ -27,89 +27,85 @@ router.get('/', function(req, res){
 
 router.post('/', function(req, res){
     //Create cookie
-    var login = req.param('id');
-    var password = req.param('password');
+    var login = req.body.id;
+    var password = req.body.password;
 
     //Print cookie
     console.log(login, password);
-    //console.log(req.body);
 
 
     var args = {
         data: {usrID: login, usrPassword: password, usrType: 0, pushToken: 'testToken'},
-
         headers: {"Content-Type": "application/json"}
     };
 
-    client.post("http://54.69.181.225:3000/usrList/Login/126.0.0.1", args, function(data, response){
+    //Get IP address  Source: http://stackoverflow.com/questions/3653065/get-local-ip-address-in-node-js
+    'use strict';
+    var os = require('os');
+    var ifaces = os.networkInterfaces();
+    var deviceKey ='';
+
+    Object.keys(ifaces).forEach(function (ifname) {
+        var alias = 0;
+
+        ifaces[ifname].forEach(function (iface) {
+            if ('IPv4' !== iface.family || iface.internal !== false) {
+                // skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
+                return;
+            }
+            if (alias >= 1) {
+                // this single interface has multiple ipv4 addresses
+                //console.log(ifname + ':' + alias, iface.address);
+                alias++;
+            } else {
+                // this interface has only one ipv4 adress
+               // console.log(ifname, iface.address);
+            }
+            deviceKey = iface.address;
+        });
+    });
+
+// en0 192.168.1.101
+// eth0 10.0.0.101
+
+    console.log('device Key:' + deviceKey);
+
+    client.post("http://54.69.181.225:3000/usrList/Login/" + deviceKey, args, function(data, response){
+        console.log(deviceKey);
         var jsonData = JSON.parse(data);
         console.log(jsonData.object);
 
         var objectData = jsonData.object;
-        for(i in objectData){
 
-            var key = i;
-            var val = objectData[i];
 
-            if(key == 'usrKey'){
-                var usrKeyOfDB = val;
-                console.log(usrKeyOfDB);
-            }
-            if(key == 'usrID'){
-                var usrIdOfDB = val;
-                console.log(usrIdOfDB);
-            }
-            /*
-            if(key == 'usrPassword'){
-                var usrPasswordOfDB = val;
-                console.log(usrPasswordOfDB);
-            } */
-        }
+
         if(jsonData.object != null){
-            console.log('data included');
-            if(usrIdOfDB == login ){
-                res.cookie('auth', true);
-                res.redirect('/mainPage');
-            }
-            else{
-                res.redirect('/login');
+            //login success
+            console.log('login success');
 
+            //Parse usrKey from object
+            for(var i in objectData){
+                var key = i;
+                var val = objectData[i];
+
+                if(key == 'usrKey'){
+                    var usrKeyOfDB = val;
+                    console.log(usrKeyOfDB);
+                }
             }
 
+            res.cookie('auth', true);
+            res.cookie('userKey', usrKeyOfDB);
+            res.cookie('devicesKey', deviceKey);
+
+            res.redirect('/mainPage');
         }
 
-    });
-
-/*
-    //Retrieve usrID & usrPassword according to id
-    connection.query('SELECT * FROM usrList WHERE usrID=?', [login], function(err, data){
-
-        if(data.length != 0){
-            console.log(data[0]['usrID']);
-            console.log(data[0]['usrPassword']);
-            //Check login
-            if(password == data[0].usrPassword){
-                //login success
-                res.cookie('auth', true);
-                res.redirect('/mainPage');
-            }
-            else{
-                //password was wrong
-                res.redirect('/login');
-                //res.send(500, 'showAlert'); //Need to use Ajax
-                console.log('wrong password');
-            }
-        }
         else{
-            //id was wrong
             res.redirect('/login');
-            //res.send(500, 'showAlert'); //Need to use Ajax
-            console.log('wrong id');
         }
-
-
     });
-    */
+
 });
 
 module.exports = router;
