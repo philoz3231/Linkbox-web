@@ -75,14 +75,17 @@ router.post('/', function(req, res){
         var jsonData = JSON.parse(data);
         console.log(jsonData.object);
 
-        var objectData = jsonData.object;
+
 
 
 
         if(jsonData.object != null){
             //login success
             console.log('login success');
+            var objectData = jsonData.object;
+            console.log(objectData.usrKey);
 
+            /*
             //Parse usrKey from object
             for(var i in objectData){
                 var key = i;
@@ -92,10 +95,10 @@ router.post('/', function(req, res){
                     var usrKeyOfDB = val;
                     console.log(usrKeyOfDB);
                 }
-            }
+            } */
 
             res.cookie('auth', true);
-            res.cookie('userKey', usrKeyOfDB);
+            res.cookie('userKey', objectData.usrKey);
             res.cookie('devicesKey', deviceKey);
 
             res.redirect('/mainPage');

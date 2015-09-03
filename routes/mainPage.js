@@ -26,12 +26,44 @@ router.get('/', function(req, res, next) {
         data: {usrKey: userKey},
         headers:{"Content-Type": "application/json"}
     };
+
+    var boxes = [];
+    var box;
+    var objectData = '';
+
     client.get("http://54.69.181.225:3000/boxList/List/" + userKey, args, function(data, response){
         var jsonData = JSON.parse(data);
-        console.log(jsonData);
+
+        var counter = 0;
+        function Box(boxKey, boxName, boxThumbnail, boxIndex, boxFavorite){
+            this.index = counter++;
+            this.boxKey = boxKey;
+            this.boxName = boxName;
+            this.boxThumbnail = boxThumbnail;
+            this.boxIndex = boxIndex;
+            this.boxFavorite = boxFavorite;
+        }
+
+        if(jsonData.object != null){
+            //box exist
+            console.log(jsonData.object);
+            objectData = jsonData.object;
+
+            for(var i in objectData){
+
+                box = new Box(objectData[i].boxKey, objectData[i].boxName, objectData[i].boxThumbnail, objectData[i].boxIndex, objectData[i].boxFavorite);
+                boxes.push(box);
+              //  console.log(box);
+               // console.log(boxes);
+            }
+
+        }
+
+        console.log(boxes);
+
+    });
 
 
-    })
 
     res.render('mainPage', { title: 'mainPage' });
 });
