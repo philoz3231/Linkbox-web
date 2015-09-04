@@ -6,7 +6,9 @@ require('./connection')();
 client = new Client();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/:boxKey', function(req, res, next) {
+    var boxKey = req.param('boxKey');
+    console.log(boxKey);
 
     // Parse cookie
     var cookie = req.headers.cookie;
@@ -30,26 +32,31 @@ router.get('/', function(req, res, next) {
     var boxListData = [];
 
     client.get("http://54.69.181.225:3000/boxList/List/" + userKey, args, function(data, response){
+        /*
+        박스리스트 다시 안읽어와도 되게 모듈화
+        필요없는 get요청 삭제
+        * */
         var jsonData = JSON.parse(data);
 
         if(jsonData.object != null){
             //box exist
-            console.log(jsonData.object);
+            //console.log(jsonData.object);
             boxListData = jsonData.object;
         }
 
-        var urlListData = [];
-        client.get('http://54.69.181.225:3000/urlList/AllList/'+ userKey + '/0/5', args, function(data2, resonse2){
-            var jsonData = JSON.parse(data2);
+
+        var urlBoxListURLData =[];
+        client.get('http://54.69.181.225:3000/urlList/BoxList/'+ userKey + '/' + boxKey + '/0/5', args, function(data2, resonse2){
+               var jsonData = JSON.parse(data2);
 
             if(jsonData.object != null){
-                //urlList exist
                 console.log(jsonData.object);
-                urlListData = jsonData.object;
+                urlBoxListURLData = jsonData.object;
             }
-            res.render('mainPage', { title: 'mainPage' , urlListData: urlListData, boxListData: boxListData, userKey:userKey});
-        });
+            res.render('boxPage', { title: 'boxPage' , boxListData: boxListData, urlBoxListURLData:urlBoxListURLData, userKey:userKey});
+        })
     });
+
 
     /*
      if(boxListData.length == 0){

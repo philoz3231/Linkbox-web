@@ -41,14 +41,14 @@
 <div class="nav">
     <div class="row">
         <ul class="col-md-10">
-            <li><a href="">홈</a></li><br>
+            <li><a href="/mainPage">홈</a></li><br>
             <li>내 박스
                 <div class="panel panel-default">
                     <div class="panel-heading">즐겨찾는 박스</div>
                     List group
                     <ul class="list-group">
                         <% for(var i in boxListData){ %>
-                        <li class="list-group-item"><a href="/boxPage"><%= boxListData[i].boxName %></a></li>
+                        <li class="list-group-item"><a href="/boxPage/<%= boxListData[i].boxKey%>"><%= boxListData[i].boxName %></a></li>
                         <% } %>
                     </ul>
                 </div>
@@ -60,52 +60,22 @@
 
 
 <div class="mainContent">
-    <div class="row">
-        <div class="col-md-8">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    Save and Share your link!
-                    <form>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Link address</label>
-                            <input type="text" class="form-control" id="linkAddressInput" placeholder="text">
-                            <button type="submit" class="btn btn-default">Submit</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <% for(var i in urlListData){ %>
-    <div class="col-md-8">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <h7><%= urlListData[i].urlDate%></h7>
-                <h3><%= urlListData[i].urlTitle%></h3>
-
-                <br/>
-                <div class="row">
-                    <div class="col-xs-6 col-md-3">
-                        <a href="#" class="thumbnail">
-                            <% if(urlListData[i].urlThumbnail != null){%>
-                            <img src= <%= urlListData[i].urlThumbnail%> alt="..." >
-                            <% } else{%>
-                            <img src="images/logo.png" alt="..." >
-                            <% } %>
-                        </a>
-                    </div>
-                    <h3><a href="<%= urlListData[i].url%>"><%= urlListData[i].url%></a></h3>
-                </div>
-                <br/>
-                <button type="button" class="btn btn-default" >
-                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                    <%= urlListData[i].likedNum%></button>
-                <button type="button" class="btn btn-default" >
-                    <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
-                </button>
-
-            </div>
+    <% for(var i in urlBoxListURLData){ %>
+    <div class="container">
+        <div class="list-group">
+            <a href="<%= urlBoxListURLData[i].url%>" class="list-group-item clearfix" target="_blank">
+                <span class="img-thumbnail" variant style="background-image: url(<%= urlBoxListURLData[i].urlThumbnail%>); background-size:cover, auto; background-position: 50% 50%, 50% 50%;"></span>
+                <%= urlBoxListURLData[i].urlTitle%>
+      <span class="pull-right">
+        <button class="btn btn-xs btn-info">
+            <span class="glyphicon glyphicon-thumbs-up"></span>
+        </button>
+        <button class="btn btn-xs btn-warning">
+            <span class="glyphicon glyphicon-comment"></span>
+        </button>
+      </span>
+            </a>
         </div>
     </div>
     <% } %>

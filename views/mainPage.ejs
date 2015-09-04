@@ -45,10 +45,9 @@
             <li>내 박스
                 <div class="panel panel-default">
                     <div class="panel-heading">즐겨찾는 박스</div>
-                    List group
                     <ul class="list-group">
                         <% for(var i in boxListData){ %>
-                        <li class="list-group-item"><a href="/boxPage"><%= boxListData[i].boxName %></a></li>
+                        <li class="list-group-item"><a href="/boxPage/<%= boxListData[i].boxKey%>"><%= boxListData[i].boxName %></a></li>
                         <% } %>
                     </ul>
                 </div>
@@ -78,6 +77,33 @@
         </div>
 
         <% for(var i in urlListData){ %>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="media">
+                 <a href="<%= urlListData[i].urlThumbnail%>" class="pull-left">
+                     <% if(urlListData[i].urlThumbnail != null){%>
+                     <img src="<%= urlListData[i].urlThumbnail%>" class="media-object" alt="URL Image" style="width:100px; height:80px">
+
+                     <% } else{%>
+                     <img src="images/logo.png" class="media-object" alt="URL Image" style="width:100px; height:80px">
+                     <% } %>
+                  </a>
+                 <div class="media-body">
+                      <h4 class="media-heading"><%= urlListData[i].urlTitle%> <small><i><%= urlListData[i].urlDate%></i></small></h4>
+                       <p><a href="<%= urlListData[i].url%>"><%= urlListData[i].url%></a></p>
+                     <br/>
+                     <button type="button" class="btn btn-default" >
+                         <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                         <%= urlListData[i].likedNum%></button>
+                     <button type="button" class="btn btn-default" >
+                         <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                     </button>
+                 </div>
+                </div>
+            </div>
+        </div>
+
+        <!--
         <div class="col-md-8">
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -108,6 +134,7 @@
                 </div>
             </div>
         </div>
+        -->
         <% } %>
 
 
