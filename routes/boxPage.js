@@ -52,11 +52,11 @@ router.get('/', function(req, res, next) {
     });
 
     /*
-    if(boxListData.length == 0){
-        console.log('No data in boxListData')
-    }else{
-        console.log('data exist but cannot print out');
-    };*/
+     if(boxListData.length == 0){
+     console.log('No data in boxListData')
+     }else{
+     console.log('data exist but cannot print out');
+     };*/
 
 });
 
