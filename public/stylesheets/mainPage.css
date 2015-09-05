@@ -12,7 +12,7 @@
 
 .header #button{margin-left:85%;}
 
-.nav {float:left;}
+.nav {float:left; padding-left:5%}
 .nav ul{list-style:none;}
 
 .mainContent{position:relative; width:80%; float:right;}

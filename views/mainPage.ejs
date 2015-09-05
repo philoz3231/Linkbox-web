@@ -33,6 +33,7 @@
 						<span class="glyphicon glyphicon-bell" aria-hidden="true">
 						</span>
         </button>
+        <button type="button" class="btn btn-default">Logout</button>
     </div>
     <hr>
     <br>
@@ -40,7 +41,7 @@
 
 <div class="nav">
     <div class="row">
-        <ul class="col-md-10">
+        <ul class="col-md-12">
             <li><a href="">홈</a></li><br>
             <li>내 박스
                 <div class="panel panel-default">
@@ -77,64 +78,35 @@
         </div>
 
         <% for(var i in urlListData){ %>
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="media">
-                 <a href="<%= urlListData[i].urlThumbnail%>" class="pull-left">
-                     <% if(urlListData[i].urlThumbnail != null){%>
-                     <img src="<%= urlListData[i].urlThumbnail%>" class="media-object" alt="URL Image" style="width:100px; height:80px">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                     <div class="panel-body">
+                         <div class="media">
+                             <a href="<%= urlListData[i].urlThumbnail%>" class="pull-right">
+                                 <% if(urlListData[i].urlThumbnail != null){%>
+                                 <img src="<%= urlListData[i].urlThumbnail%>" class="media-object" alt="URL Image" style="width:90px; height:80px">
 
-                     <% } else{%>
-                     <img src="images/logo.png" class="media-object" alt="URL Image" style="width:100px; height:80px">
-                     <% } %>
-                  </a>
-                 <div class="media-body">
-                      <h4 class="media-heading"><%= urlListData[i].urlTitle%> <small><i><%= urlListData[i].urlDate%></i></small></h4>
-                       <p><a href="<%= urlListData[i].url%>"><%= urlListData[i].url%></a></p>
-                     <br/>
-                     <button type="button" class="btn btn-default" >
-                         <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                         <%= urlListData[i].likedNum%></button>
-                     <button type="button" class="btn btn-default" >
-                         <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
-                     </button>
+                                 <% } else{%>
+                                <img src="images/logo.png" class="media-object" alt="URL Image" style="width:90px; height:80px">
+                                 <% } %>
+                             </a>
+                             <div class="media-body">
+                                 <h4 class="media-heading"><%= urlListData[i].urlTitle%> <small><i><%= urlListData[i].urlDate%></i></small></h4>
+                                <p><a href="<%= urlListData[i].url%>" target="_blank"><%= urlListData[i].url%></a></p>
+                                 <br/>
+                                 <button type="button" class="btn btn-default" >
+                                     <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                                     <%= urlListData[i].likedNum%></button>
+                                 <button type="button" class="btn btn-default" >
+                                     <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                                 </button>
+                             </div>
+                         </div>
+                     </div>
                  </div>
-                </div>
             </div>
         </div>
-
-        <!--
-        <div class="col-md-8">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h7><%= urlListData[i].urlDate%></h7>
-                    <h3><%= urlListData[i].urlTitle%></h3>
-
-                    <br/>
-                    <div class="row">
-                        <div class="col-xs-6 col-md-3">
-                            <a href="#" class="thumbnail">
-                                <% if(urlListData[i].urlThumbnail != null){%>
-                                <img src= <%= urlListData[i].urlThumbnail%> alt="..." >
-                                <% } else{%>
-                                <img src="images/logo.png" alt="..." >
-                                <% } %>
-                            </a>
-                        </div>
-                        <h3><a href="<%= urlListData[i].url%>"><%= urlListData[i].url%></a></h3>
-                    </div>
-                    <br/>
-                    <button type="button" class="btn btn-default" >
-                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                    <%= urlListData[i].likedNum%></button>
-                    <button type="button" class="btn btn-default" >
-                    <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
-                    </button>
-
-                </div>
-            </div>
-        </div>
-        -->
         <% } %>
 
 

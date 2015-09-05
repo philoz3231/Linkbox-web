@@ -34,7 +34,6 @@ router.get('/:boxKey', function(req, res, next) {
     client.get("http://54.69.181.225:3000/boxList/List/" + userKey, args, function(data, response){
         /*
         박스리스트 다시 안읽어와도 되게 모듈화
-        필요없는 get요청 삭제
         * */
         var jsonData = JSON.parse(data);
 
@@ -50,7 +49,7 @@ router.get('/:boxKey', function(req, res, next) {
                var jsonData = JSON.parse(data2);
 
             if(jsonData.object != null){
-                console.log(jsonData.object);
+                //console.log(jsonData.object);
                 urlBoxListURLData = jsonData.object;
             }
             res.render('boxPage', { title: 'boxPage' , boxListData: boxListData, urlBoxListURLData:urlBoxListURLData, userKey:userKey});

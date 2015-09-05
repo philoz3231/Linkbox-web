@@ -8,6 +8,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" type="text/css" href="/stylesheets/mainPage.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/boxPage.css">
 
 </head>
 <body>
@@ -40,12 +41,11 @@
 
 <div class="nav">
     <div class="row">
-        <ul class="col-md-10">
+        <ul class="col-md-12">
             <li><a href="/mainPage">홈</a></li><br>
             <li>내 박스
                 <div class="panel panel-default">
                     <div class="panel-heading">즐겨찾는 박스</div>
-                    List group
                     <ul class="list-group">
                         <% for(var i in boxListData){ %>
                         <li class="list-group-item"><a href="/boxPage/<%= boxListData[i].boxKey%>"><%= boxListData[i].boxName %></a></li>
@@ -61,24 +61,40 @@
 
 <div class="mainContent">
 
-    <% for(var i in urlBoxListURLData){ %>
-    <div class="container">
-        <div class="list-group">
-            <a href="<%= urlBoxListURLData[i].url%>" class="list-group-item clearfix" target="_blank">
-                <span class="img-thumbnail" variant style="background-image: url(<%= urlBoxListURLData[i].urlThumbnail%>); background-size:cover, auto; background-position: 50% 50%, 50% 50%;"></span>
-                <%= urlBoxListURLData[i].urlTitle%>
-      <span class="pull-right">
-        <button class="btn btn-xs btn-info">
-            <span class="glyphicon glyphicon-thumbs-up"></span>
-        </button>
-        <button class="btn btn-xs btn-warning">
-            <span class="glyphicon glyphicon-comment"></span>
-        </button>
-      </span>
-            </a>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="list-content">
+
+                 <ul class="list-group">
+                     <% for(var i in urlBoxListURLData){ %>
+                     <li href="#" class="list-group-item text-left">
+                         <img class="img-thumbnail" src="<%= urlBoxListURLData[i].urlThumbnail%>">
+                         <label class="name">
+                             <%= urlBoxListURLData[i].urlTitle%>
+                             <p>
+                                 <a href="<%= urlBoxListURLData[i].url%>" target="_blank"><%= urlBoxListURLData[i].url%></a>
+                             </p>
+                             <br>
+                         </label>
+                         <label class="pull-right">
+                             <a  class="btn btn-success btn-xs glyphicon glyphicon-thumbs-up" href="#" title="View"></a>
+                             <a  class="btn btn-info  btn-xs glyphicon glyphicon glyphicon-comment" href="#" title="Send message"></a>
+                         </label>
+                         <div class="break"></div>
+                     </li>
+                     <% } %>
+                     <li href="#" class="list-group-item text-left">
+                         <a class="btn btn-block btn-primary">
+                             <i class="glyphicon glyphicon-refresh"></i>
+                             Load more...
+                         </a>
+                     </li>
+                </ul>
+            </div>
         </div>
     </div>
-    <% } %>
+
 
 
 </div><!--mainContent-->
@@ -110,7 +126,7 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="../bootstrap/js/bootstrap.min.js"></script>
 </body>
 
 </html>

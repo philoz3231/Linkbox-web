@@ -8,6 +8,7 @@ client = new Client();
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
+    /*
     // Parse cookie
     var cookie = req.headers.cookie;
     cookie = cookie.split(';').map(function(element){
@@ -19,9 +20,10 @@ router.get('/', function(req, res, next) {
     });
     console.log('userKey:' + cookie[1].value);
     console.log('devicesKey:' + cookie[2].value);
+    */
 
-    var userKey = cookie[1].value;
-    var devicesKey = cookie[2].value;
+    var userKey = req.cookies.userKey;
+    var devicesKey = req.cookies.devicesKey;
     var args = {
         data: {usrKey: userKey},
         headers:{"Content-Type": "application/json"}
@@ -34,7 +36,7 @@ router.get('/', function(req, res, next) {
 
         if(jsonData.object != null){
             //box exist
-            console.log(jsonData.object);
+            //console.log(jsonData.object);
             boxListData = jsonData.object;
         }
 
@@ -44,7 +46,7 @@ router.get('/', function(req, res, next) {
 
             if(jsonData.object != null){
                 //urlList exist
-                console.log(jsonData.object);
+                //console.log(jsonData.object);
                 urlListData = jsonData.object;
             }
             res.render('mainPage', { title: 'mainPage' , urlListData: urlListData, boxListData: boxListData, userKey:userKey});
