@@ -11,6 +11,7 @@ router.get('/:boxKey', function(req, res, next) {
     console.log(boxKey);
 
     // Parse cookie
+    /*
     var cookie = req.headers.cookie;
     cookie = cookie.split(';').map(function(element){
         var element = element.split('=');
@@ -24,6 +25,11 @@ router.get('/:boxKey', function(req, res, next) {
 
     var userKey = cookie[1].value;
     var devicesKey = cookie[2].value;
+    */
+
+    var userKey = req.cookies.userKey;
+    var devicesKey = req.cookies.devicesKey;
+
     var args = {
         data: {usrKey: userKey},
         headers:{"Content-Type": "application/json"}
