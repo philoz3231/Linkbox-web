@@ -70,7 +70,7 @@ router.post('/', function(req, res){
 
     console.log('device Key:' + deviceKey);
 
-    client.post("http://54.69.181.225:3000/usrList/Login/" + deviceKey, args, function(data, response){
+    client.post("http://54.68.42.138:9000/usrList/Login/" + deviceKey, args, function(data, response){
         console.log(deviceKey);
         var jsonData = JSON.parse(data);
         console.log(jsonData.object);

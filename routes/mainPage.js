@@ -31,7 +31,7 @@ router.get('/', function(req, res, next) {
 
     var boxListData = [];
 
-    client.get("http://54.69.181.225:3000/boxList/List/" + userKey, args, function(data, response){
+    client.get("http://54.68.42.138:9000/boxList/List/" + userKey, args, function(data, response){
         var jsonData = JSON.parse(data);
 
         if(jsonData.object != null){
@@ -41,7 +41,7 @@ router.get('/', function(req, res, next) {
         }
 
         var urlListData = [];
-        client.get('http://54.69.181.225:3000/urlList/AllList/'+ userKey + '/0/5', args, function(data2, resonse2){
+        client.get('http://54.68.42.138:9000/urlList/AllList/'+ userKey + '/0/5', args, function(data2, resonse2){
             var jsonData = JSON.parse(data2);
 
             if(jsonData.object != null){
